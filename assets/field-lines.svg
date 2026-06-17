@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" role="img" aria-label="Abstract electromagnetic field lines">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#eef3ef"/>
+      <stop offset="0.48" stop-color="#f7f4ed"/>
+      <stop offset="1" stop-color="#e7ded1"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="48%" r="55%">
+      <stop offset="0" stop-color="#f4d58b" stop-opacity="0.9"/>
+      <stop offset="0.38" stop-color="#1e7d7a" stop-opacity="0.48"/>
+      <stop offset="1" stop-color="#103f42" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <rect width="960" height="1200" fill="url(#bg)"/>
+  <path d="M0 115h960M0 235h960M0 355h960M0 475h960M0 595h960M0 715h960M0 835h960M0 955h960M0 1075h960M120 0v1200M240 0v1200M360 0v1200M480 0v1200M600 0v1200M720 0v1200M840 0v1200" stroke="#111315" stroke-opacity=".08" stroke-width="1"/>
+  <ellipse cx="480" cy="565" rx="340" ry="420" fill="url(#core)" filter="url(#soft)"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M120 595c96-170 224-255 360-255s264 85 360 255c-96 170-224 255-360 255s-264-85-360-255z" stroke="#103f42" stroke-width="5" stroke-opacity=".82"/>
+    <path d="M183 595c78-126 176-189 297-189s219 63 297 189c-78 126-176 189-297 189s-219-63-297-189z" stroke="#1e7d7a" stroke-width="4" stroke-opacity=".72"/>
+    <path d="M246 595c59-82 137-123 234-123s175 41 234 123c-59 82-137 123-234 123s-175-41-234-123z" stroke="#b94c28" stroke-width="4" stroke-opacity=".76"/>
+    <path d="M65 370c142 51 280 77 415 77s273-26 415-77" stroke="#c69835" stroke-width="3" stroke-opacity=".58"/>
+    <path d="M65 820c142-51 280-77 415-77s273 26 415 77" stroke="#c69835" stroke-width="3" stroke-opacity=".58"/>
+    <path d="M480 198v794" stroke="#111315" stroke-width="2" stroke-opacity=".16" stroke-dasharray="12 16"/>
+    <path d="M83 595h794" stroke="#111315" stroke-width="2" stroke-opacity=".16" stroke-dasharray="12 16"/>
+  </g>
+  <g>
+    <circle cx="480" cy="595" r="74" fill="#111315"/>
+    <circle cx="480" cy="595" r="48" fill="#f7f4ed"/>
+    <circle cx="480" cy="595" r="18" fill="#b94c28"/>
+  </g>
+  <g fill="#111315" opacity=".62">
+    <circle cx="208" cy="415" r="5"/>
+    <circle cx="752" cy="415" r="5"/>
+    <circle cx="208" cy="775" r="5"/>
+    <circle cx="752" cy="775" r="5"/>
+  </g>
+</svg>

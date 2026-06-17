@@ -1,79 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Institute of Natural Forces</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header>
-  <h1>Institute of Natural Forces</h1>
-  <p>Observation. Experiment. Discovery.</p>
-</header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Institute of Applied Electrodynamics</title>
+    <meta
+      name="description"
+      content="An independent institute experimenting with electrical potential, electromagnetism, and applied electrodynamic systems."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="#home" aria-label="Institute of Applied Electrodynamics home">
+        <img src="assets/field-mark.svg" alt="" />
+        <span>
+          <strong>IAE</strong>
+          <small>Applied Electrodynamics</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#mission">Mission</a>
+        <a href="#log">Research Log</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#laboratory">Laboratory</a>
+        <a href="#join">Join</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Open navigation">
+        <span></span>
+        <span></span>
+      </button>
+    </header>
 
-<nav>
-  <a href="#mission">Mission</a>
-  <a href="#research">Research Log</a>
-  <a href="#projects">Projects</a>
-  <a href="#publications">Publications</a>
-  <a href="#laboratory">Laboratory</a>
-  <a href="#join">Join</a>
-</nav>
+    <main id="home">
+      <section class="hero section" aria-labelledby="hero-title">
+        <canvas class="field-canvas" data-field-canvas aria-hidden="true"></canvas>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Independent research institute</p>
+            <h1 id="hero-title">Institute of Applied Electrodynamics</h1>
+            <p class="hero-subtitle">
+              Electrical potential, electromagnetic fields, resonance, and induction
+              translated into practical experiments, instruments, and publications.
+            </p>
+            <div class="hero-actions" aria-label="Primary links">
+              <a class="button primary" href="#log">View Research Log</a>
+              <a class="button secondary" href="#join">Collaborate</a>
+            </div>
+          </div>
+          <figure class="hero-visual">
+            <img src="assets/field-lines.svg" alt="Abstract electromagnetic field lines crossing a technical grid" />
+            <figcaption>Field patterns, boundary conditions, materials, measurement.</figcaption>
+          </figure>
+        </div>
+      </section>
 
-<section id="mission">
-  <h2>Mission</h2>
-  <p>
-    Advancing practical understanding of electromagnetism, resonance,
-    energy systems, sensing, and experimental science through open
-    investigation and engineering.
-  </p>
-</section>
+      <section class="section mission-band" id="mission" aria-labelledby="mission-title">
+        <div class="section-heading">
+          <p class="eyebrow">Mission</p>
+          <h2 id="mission-title">Turn electric and magnetic field behavior into engineered capability.</h2>
+        </div>
+        <div class="mission-copy">
+          <p>
+            The institute studies electromagnetic phenomena as working principles:
+            resonance, induction, propagation, coupling, shielding, energy transfer,
+            sensing, and material response.
+          </p>
+          <p>
+            Its purpose is to keep a rigorous public record of experiments and turn
+            promising observations into useful devices, educational reports, and
+            repeatable laboratory methods.
+          </p>
+        </div>
+      </section>
 
-<section id="research">
-  <h2>Research Log</h2>
-  <article>
-    <h3>Experiment #001</h3>
-    <p>Replace this text with your first documented experiment.</p>
-  </article>
-  <article>
-    <h3>Experiment #002</h3>
-    <p>Add new experiments chronologically.</p>
-  </article>
-</section>
+      <section class="section" id="log" aria-labelledby="log-title">
+        <div class="section-heading split">
+          <div>
+            <p class="eyebrow">Research Log</p>
+            <h2 id="log-title">Chronological experiments</h2>
+          </div>
+          <p>
+            Entries are written as lab notes first: objective, setup, observations,
+            conclusion, and next action.
+          </p>
+        </div>
+        <div class="timeline">
+          <article class="log-entry">
+            <span class="entry-number">#001</span>
+            <div>
+              <h3>Coupled Coil Baseline</h3>
+              <p>
+                Establish a repeatable air-core induction bench and characterize how
+                spacing, alignment, and load affect transfer efficiency.
+              </p>
+            </div>
+          </article>
+          <article class="log-entry">
+            <span class="entry-number">#002</span>
+            <div>
+              <h3>Ferrite Boundary Study</h3>
+              <p>
+                Compare field concentration and shielding behavior across several
+                ferrite geometries using mapped voltage response.
+              </p>
+            </div>
+          </article>
+          <article class="log-entry">
+            <span class="entry-number">#003</span>
+            <div>
+              <h3>Resonant Sensor Prototype</h3>
+              <p>
+                Build a low-power resonant sensor to detect small changes in material
+                proximity through frequency shift and quality factor.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
 
-<section id="projects">
-  <h2>Projects</h2>
-  <ul>
-    <li>Resonance Explorer</li>
-    <li>Electromagnetic Field Mapping</li>
-    <li>Coil Characterization Database</li>
-    <li>Wireless Energy Investigations</li>
-  </ul>
-</section>
+      <section class="section projects-band" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading">
+          <p class="eyebrow">Projects</p>
+          <h2 id="projects-title">Ongoing investigations</h2>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <span>01</span>
+            <h3>Field-Coupled Power</h3>
+            <p>
+              Efficient near-field energy transfer for enclosed, rotating, or sealed
+              systems where physical contacts limit reliability.
+            </p>
+          </article>
+          <article class="project-card">
+            <span>02</span>
+            <h3>Material Response Mapping</h3>
+            <p>
+              Low-cost measurement methods for visualizing how materials guide,
+              absorb, distort, or shield electromagnetic fields.
+            </p>
+          </article>
+          <article class="project-card">
+            <span>03</span>
+            <h3>Nature-Inspired Antennas</h3>
+            <p>
+              Structural patterns from leaves, shells, and branching systems explored
+              as compact radiating and receiving geometries.
+            </p>
+          </article>
+        </div>
+      </section>
 
-<section id="publications">
-  <h2>Publications</h2>
-  <p>Technical reports, white papers, and research summaries.</p>
-</section>
+      <section class="section" id="publications" aria-labelledby="publications-title">
+        <div class="section-heading split">
+          <div>
+            <p class="eyebrow">Publications</p>
+            <h2 id="publications-title">Reports and public notes</h2>
+          </div>
+          <a class="text-link" href="#join">Request preprints</a>
+        </div>
+        <div class="publication-list">
+          <article>
+            <p class="pub-type">Technical memorandum</p>
+            <h3>Measurement Protocol for Small Coupled Inductors</h3>
+            <p>Drafting: repeatable fixture design, calibration, and uncertainty notes.</p>
+          </article>
+          <article>
+            <p class="pub-type">Research brief</p>
+            <h3>Resonance as a Sensing Primitive</h3>
+            <p>Planned: an accessible introduction to Q factor, detuning, and transduction.</p>
+          </article>
+        </div>
+      </section>
 
-<section id="laboratory">
-  <h2>Laboratory</h2>
-  <p>
-    List available instruments, test equipment, software, and fabrication tools.
-  </p>
-</section>
+      <section class="section laboratory-band" id="laboratory" aria-labelledby="laboratory-title">
+        <div class="section-heading">
+          <p class="eyebrow">Laboratory</p>
+          <h2 id="laboratory-title">Equipment and capabilities</h2>
+        </div>
+        <div class="capability-grid">
+          <div>
+            <h3>Measurement</h3>
+            <p>Oscilloscopes, signal generation, impedance checks, frequency response, and thermal observation.</p>
+          </div>
+          <div>
+            <h3>Fabrication</h3>
+            <p>Coil winding, fixture design, small enclosures, material samples, and rapid prototype assemblies.</p>
+          </div>
+          <div>
+            <h3>Analysis</h3>
+            <p>Data logging, field sketches, curve fitting, report writing, and reproducibility review.</p>
+          </div>
+        </div>
+      </section>
 
-<section id="join">
-  <h2>Join</h2>
-  <p>
-    Interested in collaboration? Add contact information, Discord, GitHub,
-    and social links here.
-  </p>
-</section>
+      <section class="section join" id="join" aria-labelledby="join-title">
+        <div>
+          <p class="eyebrow">Join</p>
+          <h2 id="join-title">For collaborators, builders, and patient observers.</h2>
+          <p>
+            The institute is forming around careful experiments and useful engineering.
+            Future collaborators can contribute measurement skill, materials knowledge,
+            mathematical modeling, fabrication, writing, or field testing.
+          </p>
+        </div>
+        <form class="join-form" action="mailto:hello@example.com" method="post" enctype="text/plain">
+          <label>
+            Name
+            <input name="name" type="text" autocomplete="name" />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" />
+          </label>
+          <label>
+            Interest
+            <textarea name="interest" rows="4"></textarea>
+          </label>
+          <button class="button primary" type="submit">Start a Conversation</button>
+        </form>
+      </section>
+    </main>
 
-<footer>
-  <p>© 2026 Institute of Natural Forces</p>
-</footer>
-</body>
+    <footer class="site-footer">
+      <p>Institute of Applied Electrodynamics</p>
+      <p>Applied electromagnetism for useful systems.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
