@@ -1,6 +1,8 @@
 {
   "entries": [
     "001-coupled-coil-baseline.json",
-    "002-electrostatic-potential-fixture.json"
+    "002-electrostatic-potential-fixture.json",
+    "003-resonant-frequency-sweep.json",
+    "004-shielding-material-comparison.json"
   ]
 }
