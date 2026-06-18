@@ -194,18 +194,35 @@ async function loadResearchLog() {
     const manifestResponse = await fetch("research-log/manifest.json", { cache: "no-store" });
     if (!manifestResponse.ok) throw new Error("Manifest not available");
     const manifest = await manifestResponse.json();
-    const entryResponses = await Promise.all(
+    const entryResults = await Promise.allSettled(
       manifest.entries.map(async (path) => {
         const response = await fetch(`research-log/${path}`, { cache: "no-store" });
-        if (!response.ok) throw new Error(`Entry not available: ${path}`);
-        return response.json();
+        if (!response.ok) throw new Error(`${path} (${response.status})`);
+        try {
+          return await response.json();
+        } catch {
+          throw new Error(`${path} (invalid JSON)`);
+        }
       })
     );
+    const entryResponses = entryResults
+      .filter((result) => result.status === "fulfilled")
+      .map((result) => result.value);
+    const failedEntries = entryResults
+      .filter((result) => result.status === "rejected")
+      .map((result) => result.reason?.message || "unknown entry");
+
     allEntries = entryResponses
       .filter((entry) => entry.visibility !== "private")
       .sort((a, b) => new Date(b.date) - new Date(a.date) || Number(b.number) - Number(a.number));
     filteredEntries = [...allEntries];
     renderEntries();
+    if (failedEntries.length) {
+      entryList.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="log-warning"><strong>Some entries could not be loaded.</strong><span>${failedEntries.map(escapeHtml).join(", ")}</span></div>`
+      );
+    }
   } catch (error) {
     entryList.innerHTML = `
       <p class="empty-log">

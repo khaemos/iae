@@ -209,8 +209,8 @@ h2 {
 
 h1 {
   color: var(--white);
-  font-size: clamp(3.1rem, 3.5vw, 7.2rem);
-  line-height: 1.05;
+  font-size: clamp(3.1rem, 7.7vw, 7.2rem);
+  line-height: 0.9;
   margin-bottom: 28px;
   max-width: 980px;
 }
@@ -612,6 +612,28 @@ p {
 .empty-log {
   color: var(--muted);
   padding: 28px 0;
+}
+
+.log-warning {
+  align-items: start;
+  background: rgba(216, 146, 69, 0.08);
+  border: 1px solid rgba(216, 146, 69, 0.3);
+  color: var(--steel);
+  display: grid;
+  gap: 6px;
+  margin: 20px 0;
+  padding: 14px 16px;
+}
+
+.log-warning strong,
+.log-warning span {
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 0.7rem;
+}
+
+.log-warning strong {
+  color: var(--copper);
+  text-transform: uppercase;
 }
 
 .entry-pagination {
