@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Engineering Tools | Institute of Applied Electrodynamics</title>
+    <meta name="description" content="Engineering calculators and instruments from the Institute of Applied Electrodynamics." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="iae-tools-page">
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html#home" aria-label="Institute of Applied Electrodynamics home">
+        <img src="assets/field-mark.svg" alt="" />
+        <span><strong>IAE</strong><small>Institute of Applied Electrodynamics</small></span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="index.html#mission">Mission</a>
+        <a href="index.html#scientists">Scientists</a>
+        <a href="index.html#log">Research Log</a>
+        <a href="tools.html" aria-current="page">Tools</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#publications">Publications</a>
+        <a href="index.html#laboratory">Laboratory</a>
+        <a href="index.html#join">Join</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Open navigation"><span></span><span></span></button>
+    </header>
+    <main class="iae-page-main">
+<section class="section iae-tools-section" id="tools">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Engineering instruments</p>
+          <h2>Tools</h2>
+        </div>
+        <p>Working calculators for designing, checking, and documenting experimental circuits.</p>
+      </div>
+
+      <div class="iae-tool-catalog" data-iae-tool-catalog>
+        <article class="iae-tool-card">
+          <figure><img src="assets/colpitts-circuit-hd.png" alt="Colpitts oscillator circuit"></figure>
+          <div class="iae-tool-card-copy">
+            <p class="iae-tool-index">Instrument 001 / Oscillation</p>
+            <h3>Colpitts Oscillator Calculator</h3>
+            <p>Analyze resonant frequency, capacitive feedback, and transistor bias, or determine the inductance required for a target frequency.</p>
+            <a class="iae-tool-command" href="colpitts.html">Open calculator</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    </main>
+    <footer class="site-footer">
+      <p>Institute of Applied Electrodynamics</p>
+      <p>Potential. Field. Apparatus. Record.</p>
+    </footer>
+    <script src="tools.js"></script>
+  </body>
+</html>
