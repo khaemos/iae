@@ -55,7 +55,8 @@
             <div class="iae-formula-row"><span>Collector and emitter currents</span><math display="block"><msub><mi>I</mi><mi>C</mi></msub><mo>=</mo><mi>beta</mi><msub><mi>I</mi><mi>B</mi></msub><mspace width="1em"/><msub><mi>I</mi><mi>E</mi></msub><mo>=</mo><mrow><mo>(</mo><mi>beta</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><msub><mi>I</mi><mi>B</mi></msub></math></div>
             <div class="iae-formula-row"><span>Q-point voltage</span><math display="block"><msub><mi>V</mi><mi>CE</mi></msub><mo>=</mo><msub><mi>V</mi><mi>CC</mi></msub><mo>-</mo><msub><mi>I</mi><mi>C</mi></msub><msub><mi>R</mi><mi>C</mi></msub><mo>-</mo><msub><mi>I</mi><mi>E</mi></msub><msub><mi>R</mi><mi>E</mi></msub></math></div>
             <div class="iae-formula-row"><span>Intrinsic emitter resistance</span><math display="block"><msub><mi>r</mi><mi>e</mi></msub><mo>approximately</mo><mfrac><msub><mi>V</mi><mi>T</mi></msub><msub><mi>I</mi><mi>E</mi></msub></mfrac></math></div>
-            <div class="iae-formula-row"><span>Unloaded midband voltage gain</span><math display="block"><msub><mi>A</mi><mi>v</mi></msub><mo>approximately</mo><mo>-</mo><mfrac><msub><mi>R</mi><mi>C</mi></msub><msub><mi>r</mi><mi>e</mi></msub></mfrac></math></div>
+            <div class="iae-formula-row"><span>Bypassed-emitter gain, CE effective</span><math display="block"><msub><mi>A</mi><mi>v</mi></msub><mo>approximately</mo><mo>-</mo><mfrac><msub><mi>R</mi><mi>C</mi></msub><msub><mi>r</mi><mi>e</mi></msub></mfrac></math></div>
+            <div class="iae-formula-row"><span>Unbypassed-emitter gain, no CE</span><math display="block"><msub><mi>A</mi><mi>v</mi></msub><mo>approximately</mo><mo>-</mo><mfrac><msub><mi>R</mi><mi>C</mi></msub><mrow><msub><mi>r</mi><mi>e</mi></msub><mo>+</mo><msub><mi>R</mi><mi>E</mi></msub></mrow></mfrac></math></div>
             <div class="iae-formula-row"><span>Transistor dissipation</span><math display="block"><msub><mi>P</mi><mi>Q</mi></msub><mo>=</mo><msub><mi>V</mi><mi>CE</mi></msub><msub><mi>I</mi><mi>C</mi></msub></math></div>
           </div>
         </figure>
@@ -67,8 +68,11 @@
           <p><strong>Place the Q-point for voltage swing.</strong> Choose VEQ, commonly around 10% to 20% of VCC, then set VBQ = VEQ + VBE. For approximately symmetrical collector swing, choose VCQ near (VCC + VEQ + VCE(sat)) / 2 and verify VCEQ, ICQ, and PQ = VCEQ ICQ remain within the datasheet safe operating area.</p>
           <p><strong>Make the divider stiff enough.</strong> Estimate worst-case base current with the datasheet minimum beta, not its typical value. A practical divider current through R2 is five to ten times that base current. Then R2 is approximately VBQ / Idivider and R1 is approximately (VCC - VBQ) / (Idivider + IB). Recalculate the loaded divider with the minimum beta and check cutoff and saturation at temperature extremes.</p>
 
-          <h3>Gain model limits</h3>
-          <p>The displayed gain is the unloaded, bypassed-emitter midband estimate Av = -RC / re. The minus sign represents the common-emitter stage's 180-degree phase inversion. Actual gain is lower when CE is not an effective AC short, and because of source resistance, transistor output resistance, wiring parasitics, device bandwidth, and any external load connected to VOUT.</p>
+          <h3>Voltage gain: CE, RE, and re</h3>
+          <p><strong>RE</strong> is the physical emitter resistor that you install in the circuit. <strong>re</strong> is not a part you buy; it is the transistor's internal small-signal emitter resistance, estimated as re ≈ 25.85 mV / IE at room temperature. Example: if IE = 2.88 mA, then re ≈ 9 Ω.</p>
+          <p><strong>Without CE:</strong> the AC signal must pass through both the internal transistor resistance and the external emitter resistor, so the unloaded gain is approximately Av = -RC / (re + RE). With RC = 1 kΩ, RE = 1 kΩ, and re ≈ 9 Ω, the gain is only about -0.99 V/V. This is stable and low distortion, but low gain.</p>
+          <p><strong>With CE:</strong> if the emitter bypass capacitor is large enough at the signal frequency, CE acts like an AC short across RE. The DC bias still uses RE, but the AC gain becomes approximately Av = -RC / re. With RC = 1 kΩ and re ≈ 9 Ω, the gain estimate becomes about -111 V/V.</p>
+          <p><strong>Rule to remember:</strong> RE gives DC stability. CE restores AC gain. The minus sign means the common-emitter output is inverted by 180 degrees. Real gain can still be lower because of source resistance, transistor output resistance, load resistance, wiring parasitics, device bandwidth, and a CE value that is too small for the test frequency.</p>
         </div>
       </div>
 
@@ -86,7 +90,7 @@
           <div class="iae-calculator-actions"><button type="button" data-class-a-reset>Reset example</button></div>
         </form>
         <p class="iae-calculation-warning" data-class-a-warning hidden>Enter positive circuit values and a valid transistor beta.</p>
-        <div class="iae-primary-result"><p>Unloaded midband voltage gain</p><strong data-class-primary-value>-</strong><span data-class-region>Awaiting values</span></div>
+        <div class="iae-primary-result"><p>Bypassed-emitter midband voltage gain</p><strong data-class-primary-value>-</strong><span data-class-region>Awaiting values</span></div>
         <dl class="iae-result-grid">
           <div><dt>Thevenin bias VTH</dt><dd data-class-result="vth">-</dd></div>
           <div><dt>Thevenin resistance RTH</dt><dd data-class-result="rth">-</dd></div>
@@ -114,6 +118,6 @@
       <p>Institute of Applied Electrodynamics</p>
       <p>Potential. Field. Apparatus. Record.</p>
     </footer>
-    <script src="tools.js?v=20260621c"></script>
+    <script src="tools.js?v=20260621d"></script>
   </body>
 </html>

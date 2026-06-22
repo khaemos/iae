@@ -80,3 +80,135 @@ airCoreForm?.addEventListener("input",calculateAirCore);
 airCoreForm?.addEventListener("change",calculateAirCore);
 document.addEventListener("click",event=>{const button=event.target.closest("button");if(!button)return;if(button.matches("[data-air-core-reset]")){airCoreForm.reset();calculateAirCore()}if(button.matches("[data-copy-air-core]")&&airCoreSummary){navigator.clipboard.writeText(airCoreSummary).then(()=>{const original=button.textContent;button.textContent="Calculation copied";setTimeout(()=>button.textContent=original,1600)})}});
 calculateAirCore();
+// Class-A common-emitter amplifier calculator
+const classAForm = document.querySelector("[data-class-a-form]");
+let classASummary = "";
+function classMetric(value, kind){
+  if(!Number.isFinite(value)) return "-";
+  const sets = {
+    voltage:[[1,"V"],[1e-3,"mV"]],
+    current:[[1,"A"],[1e-3,"mA"],[1e-6,"uA"],[1e-9,"nA"]],
+    resistance:[[1e6,"Mohm"],[1e3,"kohm"],[1,"ohm"]],
+    power:[[1,"W"],[1e-3,"mW"],[1e-6,"uW"]]
+  };
+  const set = sets[kind];
+  const unit = set.find(item => Math.abs(value) >= item[0]) || set[set.length - 1];
+  return (value / unit[0]).toLocaleString(undefined,{maximumSignificantDigits:5}) + " " + unit[1];
+}
+function putClassResult(key, value){
+  const node = document.querySelector('[data-class-result="' + key + '"]');
+  if(node) node.textContent = value;
+}
+function calculateClassA(){
+  if(!classAForm) return;
+  const d = new FormData(classAForm);
+  const vcc = +d.get("vcc");
+  const r1 = +d.get("r1") * +d.get("r1Unit");
+  const r2 = +d.get("r2") * +d.get("r2Unit");
+  const rc = +d.get("rc") * +d.get("rcUnit");
+  const emitterR = +d.get("re") * +d.get("reUnit");
+  const beta = +d.get("beta");
+  const valid = [vcc,r1,r2,rc,emitterR,beta].every(value => Number.isFinite(value) && value > 0) && beta >= 1;
+  const warning = document.querySelector("[data-class-a-warning]");
+  if(warning) warning.hidden = valid;
+  if(!valid){
+    document.querySelector("[data-class-primary-value]").textContent = "-";
+    document.querySelector("[data-class-region]").textContent = "Awaiting values";
+    document.querySelectorAll("[data-class-result]").forEach(node => node.textContent = "-");
+    classASummary = "";
+    return;
+  }
+
+  const vbe = 0.7;
+  const vcesat = 0.2;
+  const vt = 0.02585;
+  const vth = vcc * r2 / (r1 + r2);
+  const rth = (r1 * r2) / (r1 + r2);
+
+  // Loaded divider / DC bias solution:
+  // Vth = Ib*Rth + Vbe + Ie*RE, and Ie = (beta + 1)Ib
+  const ib = (vth - vbe) / (rth + (beta + 1) * emitterR);
+  const active = ib > 0;
+  const ic = active ? beta * ib : 0;
+  const ie = active ? (beta + 1) * ib : 0;
+  const vb = active ? vbe + ie * emitterR : vth;
+  const ve = active ? ie * emitterR : 0;
+  const vc = vcc - ic * rc;
+  const vce = vc - ve;
+  const intrinsicRe = active ? vt / ie : Infinity;
+  const gainBypassed = active ? -rc / intrinsicRe : 0;
+  const gainUnbypassed = active ? -rc / (intrinsicRe + emitterR) : 0;
+  const rinBase = active ? beta * (intrinsicRe + emitterR) : Infinity;
+  const rin = 1 / (1/r1 + 1/r2 + 1/rinBase);
+  const pq = active ? vce * ic : 0;
+  const swingUp = vcc - vc;
+  const swingDown = vc - (ve + vcesat);
+  const swing = Math.max(0, Math.min(swingUp, swingDown));
+
+  let region = "Active region";
+  if(!active) region = "Cutoff: VTH is below VBE";
+  else if(vce <= vcesat) region = "Saturation: reduce IC or RC";
+  else if(swing <= 0) region = "Bad Q-point: no clean voltage swing";
+
+  document.querySelector("[data-class-primary-value]").textContent = gainBypassed.toPrecision(5) + " V/V";
+  document.querySelector("[data-class-region]").textContent = region + " | unbypassed gain ≈ " + gainUnbypassed.toPrecision(4) + " V/V";
+
+  putClassResult("vth", classMetric(vth,"voltage"));
+  putClassResult("rth", classMetric(rth,"resistance"));
+  putClassResult("ib", classMetric(ib,"current"));
+  putClassResult("ic", classMetric(ic,"current"));
+  putClassResult("ie", classMetric(ie,"current"));
+  putClassResult("vb", classMetric(vb,"voltage"));
+  putClassResult("ve", classMetric(ve,"voltage"));
+  putClassResult("vc", classMetric(vc,"voltage"));
+  putClassResult("pq", classMetric(pq,"power"));
+  putClassResult("re", classMetric(intrinsicRe,"resistance"));
+  putClassResult("vce", classMetric(vce,"voltage"));
+  putClassResult("rin", classMetric(rin,"resistance"));
+  putClassResult("rout", classMetric(rc,"resistance"));
+  putClassResult("swing", classMetric(swing,"voltage") + " peak");
+
+  classASummary = [
+    "IAE / Class-A Common-Emitter Amplifier Calculation",
+    "VCC: " + classMetric(vcc,"voltage"),
+    "R1: " + classMetric(r1,"resistance"),
+    "R2: " + classMetric(r2,"resistance"),
+    "RC: " + classMetric(rc,"resistance"),
+    "RE: " + classMetric(emitterR,"resistance"),
+    "Beta: " + beta.toPrecision(5),
+    "VTH: " + classMetric(vth,"voltage"),
+    "RTH: " + classMetric(rth,"resistance"),
+    "IB: " + classMetric(ib,"current"),
+    "IC: " + classMetric(ic,"current"),
+    "IE: " + classMetric(ie,"current"),
+    "VB: " + classMetric(vb,"voltage"),
+    "VE: " + classMetric(ve,"voltage"),
+    "VC: " + classMetric(vc,"voltage"),
+    "VCE: " + classMetric(vce,"voltage"),
+    "PQ: " + classMetric(pq,"power"),
+    "Intrinsic emitter resistance re: " + classMetric(intrinsicRe,"resistance"),
+    "Bypassed-emitter gain: " + gainBypassed.toPrecision(5) + " V/V",
+    "Unbypassed-emitter gain: " + gainUnbypassed.toPrecision(5) + " V/V",
+    "Input resistance: " + classMetric(rin,"resistance"),
+    "Max unclipped output swing: " + classMetric(swing,"voltage") + " peak",
+    "Region: " + region
+  ].join("\n");
+}
+classAForm?.addEventListener("input", calculateClassA);
+classAForm?.addEventListener("change", calculateClassA);
+document.addEventListener("click", event => {
+  const button = event.target.closest("button");
+  if(!button) return;
+  if(button.matches("[data-class-a-reset]")){
+    classAForm.reset();
+    calculateClassA();
+  }
+  if(button.matches("[data-copy-class-a]") && classASummary){
+    navigator.clipboard.writeText(classASummary).then(() => {
+      const original = button.textContent;
+      button.textContent = "Calculation copied";
+      setTimeout(() => button.textContent = original, 1600);
+    });
+  }
+});
+calculateClassA();
